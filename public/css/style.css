@@ -1,0 +1,18 @@
+.dropdown-menu.radio .dropdown-item { 
+	position:relative;
+	overflow:hidden; 
+	cursor:pointer; }
+
+.dropdown-menu.radio input { 
+	visibility: hidden; 
+	position:absolute; left: -30px; }
+
+.dropdown-menu.radio i { 
+	font-weight:normal; font-style:normal; 
+	display:block; }
+
+.dropdown-item.active {
+  background-color:#555; color:#fff;
+}
+
+

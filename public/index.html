@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <br>
+   
+    <div class="container">
+        <form action="/Users/SendSms" method="POST">
+
+            <div class="panel panel-default" id="input">
+                <div class="btn btn-primary btn-block" onclick="myFunction()">Data From Incoming Webhook</div>
+                <div class="panel-body" id="data">
+                    <div class="input-group control-group after-add-more">
+                        <input type="text" class="form-control" name="key" placeholder="key" />
+                        <span class="input-group-addon"></span>
+                        <input type="text" class="form-control" name="value" placeholder="Text/Number" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                    <div class="copy-fields hide">
+                        <div class="control-group input-group" style="margin-top:10px">
+                            <input type="text" class="form-control" name="key" placeholder="Key" />
+                            <span class="input-group-addon">-</span>
+                            <input type="text" class="form-control" name="value" placeholder="Text/Number" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i>
+                                    Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+        <div style="margin: 0 auto;" class="panel panel-default">
+                <div class="btn btn-primary btn-block" onclick="myFunction1()">Filter Before Performing Action</div> 
+                <div id="data1" class="panel-body">
+            <span class="dropdown">
+                <label for="inputlg">If</label>&nbsp;
+                <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Select
+                    from dropdown
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" id="menu1" role="menu" aria-labelledby="menu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Cart_Total</a></li>
+                </ul>
+                <input type="hidden" name="filter" id="filter">
+            </span>
+            &nbsp;&nbsp;
+            <span class="dropdown" >
+                <button class="btn btn-default dropdown-toggle" name="ops" type="button" id="menu2" data-toggle="dropdown">Select Condition
+                <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="menu2"  role="menu" aria-labelledby="menu1" >
+                    <li  role="presentation"><a role="menuitem" tabindex="-1" href="#">Not Equals</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Equals</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Greater Than</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Less Than</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contains</a></li>
+                </ul>
+                <input type="hidden" name="operators" id="operators">
+            </span> &nbsp;&nbsp;
+            <span>
+            <input name="filter_value"  type="text" style="width:20%;padding: 4px; border: 1px solid #cdcdcd;border-radius: 25px;";>
+            </span>
+            </div>
+        </div>
+
+        <br>
+        
+        <div class="panel panel-default" >
+        <div class="dropdown" >
+                <div class="btn btn-primary btn-block" onclick="myFunction2()">Select from Trigger Data</div>
+            <div class="panel-body" id="data2">
+            
+                <label for="inputlg">To Number</label>
+            <button class="btn btn-default dropdown-toggle" name="condi" type="button" id="menu2" data-toggle="dropdown">Select
+                Condition
+                <span class="caret"></span></button>
+            <ul id="menu3"  class="dropdown-menu"  role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mobile Number</a></li>
+            </ul>
+            <input type="hidden" name="number" id="number">
+            </div>
+
+        </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputlg">Sms Text</label>
+            <input class="form-control input-lg" id="inputlg" type="text" name="text">
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="submit">
+
+    </form>
+
+    </div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //here first get the contents of the div with name class copy-fields and add it to after "after-add-more" div class.
+        $(".add-more").click(function () {
+            var html = $(".copy-fields").html();
+            $(".after-add-more").after(html);
+        });
+        //here it will remove the current value of the remove button which has been pressed
+        $("body").on("click", ".remove", function () {
+            $(this).parents(".control-group").remove();
+        });
+
+    });
+
+    $("#menu1 li a").click(function(){
+  var selText = $(this).text();
+  $(this).parents('.dropdown').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+  $('#filter').val($(this).text());
+ 
+});
+
+ $("#menu2 li a").click(function(){
+  var selText = $(this).text();
+  $(this).parents('.dropdown').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+  $('#operators').val($(this).text());
+});
+$("#menu3 li a").click(function(){
+  var selText = $(this).text();
+  $(this).parents('.dropdown').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+  $('#number').val($(this).text());
+});
+
+
+    function myFunction() {
+    var x = document.getElementById("data");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+ function myFunction1() {
+    var x = document.getElementById("data1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+function myFunction2() {
+    var x = document.getElementById("data2");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
+
+</script>
+
+</html>
